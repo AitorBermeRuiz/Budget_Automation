@@ -1,0 +1,15 @@
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/bin/Debug/net8.0/Budget_Automation.MCPServer
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/bin/Debug/net8.0/Budget_Automation.MCPServer.deps.json
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/bin/Debug/net8.0/Budget_Automation.MCPServer.runtimeconfig.json
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/bin/Debug/net8.0/Budget_Automation.MCPServer.dll
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/bin/Debug/net8.0/Budget_Automation.MCPServer.pdb
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/obj/Debug/net8.0/Budget_Automation.MCPServer.GeneratedMSBuildEditorConfig.editorconfig
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/obj/Debug/net8.0/Budget_Automation.MCPServer.AssemblyInfoInputs.cache
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/obj/Debug/net8.0/Budget_Automation.MCPServer.AssemblyInfo.cs
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/obj/Debug/net8.0/Budget_Automation.MCPServer.csproj.CoreCompileInputs.cache
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/obj/Debug/net8.0/Budget_Automation.MCPServer.sourcelink.json
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/obj/Debug/net8.0/Budget_Automation.MCPServer.dll
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/obj/Debug/net8.0/refint/Budget_Automation.MCPServer.dll
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/obj/Debug/net8.0/Budget_Automation.MCPServer.pdb
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/obj/Debug/net8.0/Budget_Automation.MCPServer.genruntimeconfig.cache
+/Users/aitor/Desktop/Personal/Repos/Budget_Automation/Budget_Automation.MCPServer/obj/Debug/net8.0/ref/Budget_Automation.MCPServer.dll
