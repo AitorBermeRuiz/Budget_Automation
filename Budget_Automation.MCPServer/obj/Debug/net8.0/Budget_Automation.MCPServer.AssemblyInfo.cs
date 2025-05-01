@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Budget_Automation.MCPServer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6157f515c809e1cf9748251ad95c20bf96618600")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fbfc6b2a5c428822175a50d2acd6162462bc59ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("Budget_Automation.MCPServer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Budget_Automation.MCPServer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
