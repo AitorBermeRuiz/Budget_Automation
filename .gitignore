@@ -47,3 +47,4 @@ msbuild.wrn
 **/[Pp]ackages/*
 # except build/, which is used as an MSBuild target.
 !**/[Pp]ackages/build/
+Budget_Automation.MCPServer/src/credentials.json

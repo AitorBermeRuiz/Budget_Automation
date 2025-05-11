@@ -1,30 +1,27 @@
 ﻿using System.ComponentModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ModelContextProtocol;
+using ModelContextProtocol.AspNetCore;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Builder;
+using ModelContextProtocol.Protocol.Types;
 using ModelContextProtocol.Server;
+using Microsoft.AspNetCore.Hosting;
+using Budget_Automation.MCPServer.MCP.Tools;
 
-Console.WriteLine("Hello MCP World!");
 
 var builder = Host.CreateEmptyApplicationBuilder(settings: null);
 
+// Configurar servicios de Google Sheets
+// builder.Services.AddSingleton<IGoogleSheetsService, GoogleSheetsService>();
+// builder.Services.AddSingleton<ISheetConfigurationService, SheetConfigurationService>();
+
+// Configurar MCP Server con API fluida
 builder.Services
-    .AddMcpServer(options =>
-    {
-        options.ServerInfo = new() { Name = "Time Server", Version = "1.0.0" };
-        options.ServerInstructions = "Gets the time and curcd rent time.";
-    })
+    .AddMcpServer()
     .WithStdioServerTransport()
-    .WithTools<TimeTool>();
+    .WithTools<WeatherTool>(); // Registramos todas las herramientas del ensamblado
 
-var host = builder.Build();
+builder.Services.AddHttpClient();
 
-await host.RunAsync();
-
-
-[McpServerToolType]
-public class TimeTool
-{
-    [McpServerTool, Description("Gets the current time.")]
-    public static string GetCurrentTime() => DateTimeOffset.Now.AddDays(1).ToString();
-}
+await builder.Build().RunAsync();
