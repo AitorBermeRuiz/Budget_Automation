@@ -32,7 +32,7 @@ namespace Budget_Automation.MCPServer.MCP.Tools
                 var latitude = json.GetProperty("latitude").GetDouble();
                 var longitude = json.GetProperty("longitude").GetDouble();
 
-                var weatherResponse = await InvokeServiceAs(HttpMethod.Get, $"https://api.open-meteo.com/v1/forecast?latitude={latitude.ToInvariantString()}&longitude={longitude.ToInvariantString()}&hourly=temperature_2m&current=temperature_2m,relative_humidity_2m,is_day,precipitation&timezone=auto&forecast_days=1);
+                var weatherResponse = await InvokeServiceAs(HttpMethod.Get, $"https://api.open-meteo.com/v1/forecast?latitude={latitude.ToInvariantString()}&longitude={longitude.ToInvariantString()}&hourly=temperature_2m&current=temperature_2m,relative_humidity_2m,is_day,precipitation&timezone=auto&forecast_days=1");
                 
                 return JsonSerializer.Serialize(weatherResponse);
             } 
