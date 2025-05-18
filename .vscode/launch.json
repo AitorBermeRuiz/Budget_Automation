@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET Core Launch (console)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/Budget_Automation.MCPServer/src/bin/Debug/net8.0/Budget_Automation.MCPServer.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/Budget_Automation.MCPServer/src",
+      "stopAtEntry": false,
+      "console": "integratedTerminal",
+      "env": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  ]
+}

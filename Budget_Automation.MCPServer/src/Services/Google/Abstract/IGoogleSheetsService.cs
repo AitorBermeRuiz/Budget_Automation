@@ -5,6 +5,6 @@ namespace Budget_Automation.MCPServer.Services.Google.Abstract;
 
 public interface IGoogleSheetsService
 {
-    BatchGetValuesResponse ReadRange(List<String> ranges);
-    UpdateValuesResponse UpdateRange(string range, IList<IList<Object>> values);
+    Task<BatchGetValuesResponse> ReadRange(List<String> ranges);
+    Task<UpdateValuesResponse> UpdateRange(string range, IList<IList<Object>> values);
 }

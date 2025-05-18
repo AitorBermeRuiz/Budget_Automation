@@ -1,4 +1,3 @@
-
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
@@ -32,5 +31,23 @@ namespace Budget_Automation.MCPServer.Services.Google
 
             return await GoogleWebAuthorizationBroker.AuthorizeAsync(secrets, scopes, "user", CancellationToken.None);
         }
+
+        // public GoogleCredential GetCredentialsFromFile()
+        // {
+        //     GoogleCredential credential;
+        //     // Use Directory.GetCurrentDirectory() to resolve the credentials.json file path
+        //     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "credentials.json");
+
+        //     if (!File.Exists(filePath))
+        //     {
+        //         throw new FileNotFoundException($"The credentials file was not found at {filePath}");
+        //     }
+
+        //     using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+        //     {
+        //         credential = GoogleCredential.FromStream(stream).CreateScoped(scopes);
+        //     }
+        //     return credential;
+        // }
     }
 }
