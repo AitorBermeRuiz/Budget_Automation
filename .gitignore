@@ -48,3 +48,8 @@ msbuild.wrn
 # except build/, which is used as an MSBuild target.
 !**/[Pp]ackages/build/
 Budget_Automation.MCPServer/src/credentials.json
+
+# Ignorar todos los archivos con extensión .DB
+*.DB*
+
+

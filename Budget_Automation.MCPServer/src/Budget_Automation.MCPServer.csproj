@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ToolCommandName>weather</ToolCommandName>
+    <UserSecretsId>5dc45a9c-0c17-4332-83ba-0c4eac625e04</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
