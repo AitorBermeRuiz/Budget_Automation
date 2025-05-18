@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Budget_Automation.MCPServer.Services.Google.Abstract;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
@@ -10,14 +11,16 @@ namespace Budget_Automation.MCPServer.Services.Google
     public class GoogleSheetsService : IGoogleSheetsService
     {
         private readonly SheetsService sheetsService;
-        private const string SpreadsheetId = "122ALcsCUMwzgveM-EZeha37dd6vdfxRiDO_1jVOfqdE";
+        private const string SpreadsheetId = "1DyOfUkyDV0uu10gu5ygeY9VBLTBFBs7psRm7N6IzTI0";
 
         public GoogleSheetsService(GoogleAuthService googleAuthService)
         {
             var credentials = googleAuthService.LoginAsync().Result;
             sheetsService = new SheetsService(new BaseClientService.Initializer
             {
-                HttpClientInitializer = credentials
+                HttpClientInitializer = credentials,
+                ApplicationName = "Buedget_Automation"
+
             });
         }
 
@@ -39,14 +42,14 @@ namespace Budget_Automation.MCPServer.Services.Google
         /// <returns>
         /// Un objeto <see cref="BatchGetValuesResponse"/> que contiene los valores recuperados de los rangos especificados.
         /// </returns>
-       public BatchGetValuesResponse ReadRange(List<String> ranges) 
+       public async Task<BatchGetValuesResponse> ReadRange(List<String> ranges) 
         {
             try 
             {
                 // TODO : Add the actual spreadsheet ID
                 var request = sheetsService.Spreadsheets.Values.BatchGet(SpreadsheetId); 
                 request.Ranges = ranges;
-                return request.Execute();
+                return await request.ExecuteAsync();
 
             } catch (Exception ex) 
             {
@@ -58,11 +61,10 @@ namespace Budget_Automation.MCPServer.Services.Google
     /// <summary>
     /// Actualiza un rango de celdas en una hoja de Google Sheets
     /// </summary>
-    /// <param name="spreadsheetId">ID de la hoja de cálculo de Google</param>
     /// <param name="range">Rango a actualizar (ej. "Sheet1!A1:D5")</param>
     /// <param name="values">Matriz de valores a escribir en el rango</param>
     /// <returns>Objeto con la respuesta de la actualización o lanza excepción si falla</returns>
-    public UpdateValuesResponse UpdateRange(string range, IList<IList<Object>> values)
+    public async Task<UpdateValuesResponse> UpdateRange(string range, IList<IList<Object>> values)
     {
         try
         {
@@ -80,7 +82,7 @@ namespace Budget_Automation.MCPServer.Services.Google
             updateRequest.ValueInputOption = SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
 
             // Ejecutar la solicitud
-            var googleResponse = updateRequest.Execute() ?? throw new Exception("No se recibió respuesta del servidor de Google Sheets");
+            var googleResponse = await updateRequest.ExecuteAsync() ?? throw new Exception("No se recibió respuesta del servidor de Google Sheets");
 
                 // Crear y devolver nuestro objeto de respuesta personalizado
                 return new UpdateValuesResponse
