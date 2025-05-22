@@ -8,11 +8,18 @@ using Microsoft.Extensions.Options;
 
 namespace Budget_Automation.MCPServer.Services.Google
 {
-    public class GoogleAuthService(IOptions<GoogleApiSettings> settings)
+    public class GoogleAuthService
     {
-        private readonly string googleClientId = settings.Value.ClientId;
-        private readonly string googleClientSecret = settings.Value.ClientSecret;
+        private readonly string googleClientId;
+        private readonly string googleClientSecret;
         private readonly string[] scopes = [SheetsService.Scope.Spreadsheets];
+
+        public GoogleAuthService(GoogleApiSettings settings)
+        {
+            googleClientId = settings.ClientId;
+            googleClientSecret = settings.ClientSecret;
+            scopes = [SheetsService.Scope.Spreadsheets];
+        }
 
         /// <summary>
         /// Login to Google API using OAuth2.
