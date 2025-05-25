@@ -5,6 +5,18 @@ using Budget_Automation.MCPServer.Services.Google;
 using Budget_Automation.MCPServer.Services.Google.Abstract;
 using Microsoft.Extensions.Logging;
 using Budget_Automation.MCPServer.Services.Google.Models;
+using Budget_Automation.MCPServer.Utilities.Helpers;
+
+// Manejar comando de autenticación
+if (args.Length > 0 && args[0] == "auth")
+{
+    await AuthenticationHelper.RunAuthenticationFlow();
+    return;
+}
+
+
+// Verificar que existan tokens antes de iniciar
+AuthenticationHelper.VerifyTokensExist();
 
 // Configuración mínima como en WeatherTool
 var builder = Host.CreateEmptyApplicationBuilder(settings: null);
@@ -12,13 +24,24 @@ builder.Logging.AddConsole(options => {
     options.LogToStandardErrorThreshold = LogLevel.Trace;
 });
 
-// Registrar servicios esenciales 
+// Cargar configuración desde variables de entorno o valores por defecto
 var googleSettings = new GoogleApiSettings 
 {
-    ClientId = "435059752038-6qn8phbngtj2781v3d8hb3fbb8li0smu.apps.googleusercontent.com",
-    ClientSecret = "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",
-    SpreadsheetId = "fdassd"
+    // ClientId y ClientSecret ya no son necesarios aquí - están en el token
+    SpreadsheetId = Environment.GetEnvironmentVariable("SPREADSHEET_ID") 
+        ?? "TU_SPREADSHEET_ID_POR_DEFECTO",
+    TokenPath = Environment.GetEnvironmentVariable("GOOGLE_TOKEN_PATH") 
+        ?? "credentials/tokens"
 };
+
+// Validar configuración
+{
+    Console.Error.WriteLine(" Error: SPREADSHEET_ID no configurado");
+    Console.Error.WriteLine("   Configura la variable de entorno SPREADSHEET_ID");
+    Environment.Exit(1);
+}
+
+// Registrar servicios esenciales 
 builder.Services.AddSingleton(googleSettings);
 builder.Services.AddSingleton<GoogleAuthService>();
 builder.Services.AddSingleton<IGoogleSheetsService, GoogleSheetsService>();
@@ -29,7 +52,6 @@ builder.Services
     .WithStdioServerTransport()
     .WithTools<GoogleSheetTool>();
 
-// Agregar HttpClient si es necesario
 builder.Services.AddHttpClient();
 
 // Construir y ejecutar

@@ -1,55 +1,177 @@
-# .NET build output
-bin/
-obj/
+# ============================================
+# CREDENCIALES Y SECRETOS - CRÍTICO
+# ============================================
+credentials/
+client_secret.json
+client_secret_*.json
+*-credentials.json
+*.p12
+*.pfx
+tokens/
+.env
+.env.*
 
-# Visual Studio files
-.vs/
+# ============================================
+# CONFIGURACIÓN LOCAL
+# ============================================
+appsettings.Local.json
+appsettings.Development.json
+appsettings.Production.json
 *.user
 *.userosscache
-*.sln.docstates
-*.userprefs
+*.suo
 
-# Build results
+# ============================================
+# COMPILACIÓN C#/.NET
+# ============================================
+bin/
+obj/
+out/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
 x64/
 x86/
-build/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
 bld/
 [Bb]in/
 [Oo]bj/
-[Oo]ut/
-msbuild.log
-msbuild.err
-msbuild.wrn
+[Ll]og/
+[Ll]ogs/
+publish/
+published/
 
-# Visual Studio Code
+# ============================================
+# VISUAL STUDIO
+# ============================================
+.vs/
+.vscode/
+*.swp
+*.swo
+*~
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ============================================
+# VISUAL STUDIO CODE
+# ============================================
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+!.vscode/*.code-snippets
+*.code-workspace
+.history/
+*.vsix
 
-# User-specific files
-*.rsuser
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
+# ============================================
+# RIDER
+# ============================================
+.idea/
+*.sln.iml
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
 
-# NuGet
+# ============================================
+# NUGET
+# ============================================
 *.nupkg
-# NuGet Symbol Packages
 *.snupkg
-# The packages folder can be ignored because of Package Restore
 **/[Pp]ackages/*
-# except build/, which is used as an MSBuild target.
 !**/[Pp]ackages/build/
-Budget_Automation.MCPServer/src/credentials.json
+*.nuget.props
+*.nuget.targets
 
-# Ignorar todos los archivos con extensión .DB
-*.DB*
+# ============================================
+# PRUEBAS
+# ============================================
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+coverage/
+*.coverage
+*.coveragexml
+_NCrunch_*
+.*crunch*.local.xml
+nCrunchTemp_*
 
+# ============================================
+# MACOS
+# ============================================
+*.DS_Store*
+.AppleDouble
+.LSOverride
+Icon
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
+# ============================================
+# WINDOWS
+# ============================================
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# ============================================
+# LINUX
+# ============================================
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ============================================
+# LOGS Y TEMPORALES
+# ============================================
+*.log
+logs/
+temp/
+tmp/
+cache/
+
+# ============================================
+# BASES DE DATOS LOCALES
+# ============================================
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# ============================================
+# OTROS
+# ============================================
+node_modules/
+.fake/
+.ionide/
+*.orig
