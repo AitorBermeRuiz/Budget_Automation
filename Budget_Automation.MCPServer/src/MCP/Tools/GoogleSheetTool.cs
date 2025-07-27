@@ -26,7 +26,7 @@ public class GoogleSheetTool(
             // Leer los datos del rango especificado
             var data =  await _googleSheetsService.ReadRange(range);
 
-            // Si no hay datos, informar de manera amigable
+            // Si no hay datos, informar
             if (data == null || data.ValueRanges.Count == 0)
             {
                 return $"No se encontraron datos en el rango '{range}'";
@@ -56,13 +56,10 @@ public class GoogleSheetTool(
         var convertedValues = sanitizedValues
             .Select(row => row.Cast<object>().ToList() as IList<object>)
             .ToList();
-        // Log the sanitized data for debugging purposes
         _logger.LogInformation("Attempting to write sanitized data to range {Range}: {Values}", range, JsonSerializer.Serialize(sanitizedValues));
 
-        // Call the UpdateRange method of the Google Sheets service
         var response = await _googleSheetsService.UpdateRange(range, convertedValues);
 
-        // Return a message indicating the success of the operation
         return $"Data successfully written to range '{response.UpdatedRange}'. Rows updated: {response.UpdatedRows}, Columns updated: {response.UpdatedColumns}.";
     }
     catch (Exception ex)
