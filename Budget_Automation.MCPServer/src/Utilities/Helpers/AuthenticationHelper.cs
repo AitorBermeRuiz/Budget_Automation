@@ -18,17 +18,10 @@ namespace Budget_Automation.MCPServer.Utilities.Helpers
             var tokenPath = Environment.GetEnvironmentVariable("GOOGLE_TOKEN_PATH") 
                 ?? "credentials/tokens";
 
-            Console.WriteLine($" Buscando credenciales en: {Path.GetFullPath(credentialsPath)}");
+            // Console.WriteLine($" Buscando credenciales en: {Path.GetFullPath(credentialsPath)}");
 
             if (!File.Exists(credentialsPath))
             {
-                Console.WriteLine("No se encontró el archivo de credenciales.");
-                Console.WriteLine("Instrucciones:");
-                Console.WriteLine("1. Ve a https://console.cloud.google.com");
-                Console.WriteLine("2. Crea un proyecto y habilita Google Sheets API");
-                Console.WriteLine("3. Crea credenciales OAuth 2.0 (tipo 'Desktop App')");
-                Console.WriteLine("4. Descarga el JSON y guárdalo como:");
-                Console.WriteLine($"   {Path.GetFullPath(credentialsPath)}");
                 return;
             }
 
@@ -38,7 +31,7 @@ namespace Budget_Automation.MCPServer.Utilities.Helpers
 
                 using var stream = new FileStream(credentialsPath, FileMode.Open, FileAccess.Read);
                 
-                Console.WriteLine("\n Abriendo navegador para autenticación...\n");
+                // Console.WriteLine("\n Abriendo navegador para autenticación...\n");
 
                 var credential = await GoogleWebAuthorizationBroker.AuthorizeAsync(
                     GoogleClientSecrets.FromStream(stream).Secrets,
@@ -47,8 +40,6 @@ namespace Budget_Automation.MCPServer.Utilities.Helpers
                     CancellationToken.None,
                     new FileDataStore(tokenPath, true));
 
-                Console.WriteLine("\n¡Autenticación completada!");
-                Console.WriteLine($" Tokens guardados en: {Path.GetFullPath(tokenPath)}");
             }
             catch (Exception ex)
             {
