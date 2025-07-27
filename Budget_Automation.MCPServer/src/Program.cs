@@ -35,11 +35,11 @@ var googleSettings = new GoogleApiSettings
 };
 
 // Validar configuración
-{
-    Console.Error.WriteLine(" Error: SPREADSHEET_ID no configurado");
-    Console.Error.WriteLine("   Configura la variable de entorno SPREADSHEET_ID");
-    Environment.Exit(1);
-}
+// {
+//     Console.Error.WriteLine(" Error: SPREADSHEET_ID no configurado");
+//     Console.Error.WriteLine("   Configura la variable de entorno SPREADSHEET_ID");
+//     Environment.Exit(1);
+// }
 
 // Registrar servicios esenciales 
 builder.Services.AddSingleton(googleSettings);

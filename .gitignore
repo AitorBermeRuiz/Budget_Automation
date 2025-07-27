@@ -10,6 +10,7 @@ client_secret_*.json
 tokens/
 .env
 .env.*
+docs/
 
 # ============================================
 # CONFIGURACIÓN LOCAL
@@ -175,3 +176,4 @@ node_modules/
 .fake/
 .ionide/
 *.orig
+docs/
