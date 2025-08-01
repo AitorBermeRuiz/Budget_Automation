@@ -1,7 +1,5 @@
-using System;
 using Budget_Automation.MCPServer.Services.Google.Models;
 using Google.Apis.Auth.OAuth2;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Budget_Automation.MCPServer.Services.Google
@@ -20,7 +18,7 @@ namespace Budget_Automation.MCPServer.Services.Google
             _logger = logger;
         }
 
-        public  GoogleCredential GetCredentialAsync()
+        public  GoogleCredential GetCredential()
         {
             if (_credential != null)
             {

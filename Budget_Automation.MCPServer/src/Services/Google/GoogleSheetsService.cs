@@ -1,11 +1,8 @@
-using System.Threading.Tasks;
 using Budget_Automation.MCPServer.Services.Google.Abstract;
 using Budget_Automation.MCPServer.Services.Google.Models;
-using Google.Apis.Auth.OAuth2;
 using Google.Apis.Services;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Budget_Automation.MCPServer.Services.Google
@@ -35,7 +32,7 @@ namespace Budget_Automation.MCPServer.Services.Google
                 _logger.LogDebug("Leyendo rangos: {Ranges} de spreadsheet {SpreadsheetId}", 
                     string.Join(", ", ranges), _options.SpreadsheetId);
                 
-                var credential = _authService.GetCredentialAsync();
+                var credential = _authService.GetCredential();
                 
                 if (_sheetsService == null)
                 {
@@ -70,7 +67,7 @@ namespace Budget_Automation.MCPServer.Services.Google
                 _logger.LogDebug("Escribiendo en rango: {Range} de spreadsheet {SpreadsheetId}", 
                     range, _options.SpreadsheetId);
                 
-                var credential = _authService.GetCredentialAsync();
+                var credential = _authService.GetCredential();
                 
                 if (_sheetsService == null)
                 {

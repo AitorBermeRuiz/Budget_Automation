@@ -6,63 +6,57 @@ using Microsoft.Extensions.Logging;
 using Budget_Automation.MCPServer.Services.Google.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Budget_Automation.MCPServer.MCP.Tools;
 
+var builder = WebApplication.CreateBuilder(args);
 
-var builder = Host.CreateEmptyApplicationBuilder(settings: null);
-
-builder.Logging.AddConsole(options => {
-    options.LogToStandardErrorThreshold = LogLevel.Trace;
-});
-
+Console.WriteLine($"🔧 Environment: {builder.Environment.EnvironmentName}");
+Console.WriteLine($"🔧 IsDebug: {System.Diagnostics.Debugger.IsAttached}");
 builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
     .AddEnvironmentVariables();
 
-// Registrar servicios esenciales 
-builder.Services.Configure<GoogleServiceOptions>(builder.Configuration.GetSection("GoogleService"));
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
+// Configure Google Services
+builder.Services.Configure<GoogleServiceOptions>(
+    builder.Configuration.GetSection("GoogleService"));
 
 builder.Services.AddSingleton<GoogleServiceAccountAuthService>();
 builder.Services.AddSingleton<IGoogleSheetsService, GoogleSheetsService>();
 
-#if DEBUG
-// 🔧 MODO DEBUG: Sin MCP, solo testing
-builder.Services.AddHttpClient();
-
-var host = builder.Build();
-
-// Validar configuración
-try
-{
-    var googleOptions = host.Services.GetRequiredService<IOptions<GoogleServiceOptions>>().Value;
-    if (!googleOptions.IsValid())
-    {
-        Console.Error.WriteLine("❌ GoogleService configuration incomplete.");
-        Environment.Exit(1);
-    }
-
-    // Test de conexión
-    var sheetsService = host.Services.GetRequiredService<IGoogleSheetsService>();
-    var testResult = await sheetsService.ReadRange(new List<string> { "A1:A1" });
-
-    await host.RunAsync();
-}
-catch (Exception ex)
-{
-    Console.Error.WriteLine($"❌ Error: {ex.Message}");
-    Environment.Exit(1);
-}
-
-#else
-// Configurar MCP Server 
 builder.Services
     .AddMcpServer()
-    .WithStdioServerTransport()
+    .WithHttpTransport() 
     .WithTools<GoogleSheetTool>();
 
 builder.Services.AddHttpClient();
 
-// Construir y ejecutar
-var host = builder.Build();
-await host.RunAsync();
-#endif
+
+var app = builder.Build();
+
+// Validate configuration at startup
+try
+{
+    var googleOptions = app.Services.GetRequiredService<IOptions<GoogleServiceOptions>>().Value;
+    if (!googleOptions.IsValid())
+    {
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogError("GoogleService configuration incomplete");
+        Environment.Exit(1);
+    }
+}
+catch (Exception ex)
+{
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogError(ex, "Configuration error during startup");
+    Environment.Exit(1);
+}
+
+// Map MCP endpoints
+app.MapMcp();
+
+await app.RunAsync();
