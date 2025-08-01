@@ -1,4 +1,3 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace Budget_Automation.MCPServer.Services.Google.Models
