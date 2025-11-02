@@ -1,10 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Budget_Automation.MCPServer.Services.Google;
 using Budget_Automation.MCPServer.Services.Google.Abstract;
-using Microsoft.Extensions.Logging;
 using Budget_Automation.MCPServer.Services.Google.Models;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Budget_Automation.MCPServer.MCP.Tools;
 
