@@ -12,6 +12,7 @@ Console.WriteLine($"🔧 IsDebug: {System.Diagnostics.Debugger.IsAttached}");
 builder.Configuration
     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
     .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
 
 builder.Logging.ClearProviders();
