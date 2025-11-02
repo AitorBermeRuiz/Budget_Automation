@@ -25,50 +25,23 @@ namespace Budget_Automation.MCPServer.Services.Google
             _logger = logger;
         }
 
-        public async Task<BatchGetValuesResponse> ReadRange(List<string> ranges) 
-        {
-            try 
-            {
-                _logger.LogDebug("Leyendo rangos: {Ranges} de spreadsheet {SpreadsheetId}", 
-                    string.Join(", ", ranges), _options.SpreadsheetId);
-                
-                var credential = _authService.GetCredential();
-                
-                if (_sheetsService == null)
-                {
-                    _sheetsService = new SheetsService(new BaseClientService.Initializer
-                    {
-                        HttpClientInitializer = credential,
-                        ApplicationName = "Budget_Automation_MCP"
-                    });
-                }
 
-                var request = _sheetsService.Spreadsheets.Values.BatchGet(_options.SpreadsheetId); 
-                request.Ranges = ranges;
-                
-                var response = await request.ExecuteAsync();
-                
-                _logger.LogInformation("Lectura exitosa. Rangos devueltos: {Count}", 
-                    response.ValueRanges?.Count ?? 0);
-                
-                return response;
-            } 
-            catch (Exception ex) 
-            {
-                _logger.LogError(ex, "Error al leer rangos {Ranges}", string.Join(", ", ranges));
-                throw;
-            }
-        }
+
+        public async Task<BatchGetValuesResponse> ReadRange(List<string> ranges)
+            => await BatchGetWithOptions(ranges);
+
+        public async Task<BatchGetValuesResponse> GetRangeFormulas(List<string> ranges)
+            => await BatchGetWithOptions(ranges, SpreadsheetsResource.ValuesResource.BatchGetRequest.ValueRenderOptionEnum.FORMULA);
 
         public async Task<UpdateValuesResponse> UpdateRange(string range, IList<IList<object>> values)
         {
             try
             {
-                _logger.LogDebug("Escribiendo en rango: {Range} de spreadsheet {SpreadsheetId}", 
+                _logger.LogDebug("Escribiendo en rango: {Range} de spreadsheet {SpreadsheetId}",
                     range, _options.SpreadsheetId);
-                
+
                 var credential = _authService.GetCredential();
-                
+
                 if (_sheetsService == null)
                 {
                     _sheetsService = new SheetsService(new BaseClientService.Initializer
@@ -81,17 +54,17 @@ namespace Budget_Automation.MCPServer.Services.Google
                 var valueRange = new ValueRange { Values = values };
 
                 var updateRequest = _sheetsService.Spreadsheets.Values.Update(
-                    valueRange, 
-                    _options.SpreadsheetId, 
+                    valueRange,
+                    _options.SpreadsheetId,
                     range);
-                
-                updateRequest.ValueInputOption = 
+
+                updateRequest.ValueInputOption =
                     SpreadsheetsResource.ValuesResource.UpdateRequest.ValueInputOptionEnum.USERENTERED;
 
-                var googleResponse = await updateRequest.ExecuteAsync() 
+                var googleResponse = await updateRequest.ExecuteAsync()
                     ?? throw new Exception("No se recibió respuesta del servidor de Google Sheets");
 
-                _logger.LogInformation("Escritura exitosa. Celdas actualizadas: {Cells}", 
+                _logger.LogInformation("Escritura exitosa. Celdas actualizadas: {Cells}",
                     googleResponse.UpdatedCells);
 
                 return new UpdateValuesResponse
@@ -109,6 +82,30 @@ namespace Budget_Automation.MCPServer.Services.Google
                 _logger.LogError(ex, "Error al actualizar rango {Range}", range);
                 throw;
             }
+        }
+
+        private async Task<BatchGetValuesResponse> BatchGetWithOptions(
+            List<string> ranges,
+            SpreadsheetsResource.ValuesResource.BatchGetRequest.ValueRenderOptionEnum? renderOption = null)
+        {
+            var credential = _authService.GetCredential();
+
+            if (_sheetsService == null)
+            {
+                _sheetsService = new SheetsService(new BaseClientService.Initializer
+                {
+                    HttpClientInitializer = credential,
+                    ApplicationName = "Budget_Automation_MCP"
+                });
+            }
+
+            var request = _sheetsService.Spreadsheets.Values.BatchGet(_options.SpreadsheetId);
+            request.Ranges = ranges;
+
+            if (renderOption.HasValue)
+                request.ValueRenderOption = renderOption.Value;
+
+            return await request.ExecuteAsync();
         }
     }
 }

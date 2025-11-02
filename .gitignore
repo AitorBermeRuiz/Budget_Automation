@@ -176,3 +176,4 @@ node_modules/
 .fake/
 .ionide/
 *.orig
+.DS_Store
