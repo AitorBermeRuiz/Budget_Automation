@@ -7,6 +7,13 @@ using Budget_Automation.MCPServer.MCP.Tools;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Configure Kestrel for long-lived connections (SSE)
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(10);
+    serverOptions.Limits.RequestHeadersTimeout = TimeSpan.FromMinutes(10);
+});
+
 Console.WriteLine($"🔧 Environment: {builder.Environment.EnvironmentName}");
 Console.WriteLine($"🔧 IsDebug: {System.Diagnostics.Debugger.IsAttached}");
 builder.Configuration
